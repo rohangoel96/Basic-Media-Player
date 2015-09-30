@@ -1,4 +1,6 @@
 import java.awt.BorderLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -52,5 +54,27 @@ public class Player {
 	    	
 	        mediaPlayerComponent.getMediaPlayer().playMedia(args[0]);
 
+	        pauseButton.addActionListener(new ActionListener() {
+	            @Override
+	            public void actionPerformed(ActionEvent e) {
+	                mediaPlayerComponent.getMediaPlayer().pause();
+	            }
+	        });
+	        
+	        rewindButton.addActionListener(new ActionListener() {
+	            @Override
+	            public void actionPerformed(ActionEvent e) {
+	                mediaPlayerComponent.getMediaPlayer().skip(-10000);
+	            }
+	        });
+	        
+	        forwardButton.addActionListener(new ActionListener() {
+	            @Override
+	            public void actionPerformed(ActionEvent e) {
+	                mediaPlayerComponent.getMediaPlayer().skip(10000);
+	            }
+	        });
+	        
+	        
 	    }
 	}
