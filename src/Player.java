@@ -20,7 +20,7 @@ public class Player {
 	    private final JButton forwardButton;
 	    private final JLabel sourceLabel;
 	    private final JTextField videoSource;	//enter the source of the video for example C:\a.mkv
-	    
+	    private JLabel status;
 	    
 	    private final EmbeddedMediaPlayerComponent mediaPlayerComponent;
 
@@ -52,12 +52,12 @@ public class Player {
 	    	contentPane.add(controlsPane, BorderLayout.SOUTH);
 	    	
 	    	JPanel sourcePane = new JPanel();
-	    	
 	    	sourceLabel = new JLabel("Video Source : ");
 	    	sourcePane.add(sourceLabel);
-	    	
 	    	videoSource = new JTextField(20);
 	    	sourcePane.add(videoSource);
+	    	status = new JLabel("...");
+	    	sourcePane.add(status);
 	    	contentPane.add(sourcePane, BorderLayout.NORTH);
 	    	
 	    	
@@ -74,6 +74,10 @@ public class Player {
 	            @Override
 	            public void actionPerformed(ActionEvent e) {
 	                mediaPlayerComponent.getMediaPlayer().pause();
+	                if(status.getText()=="Paused...")
+	                	status.setText("Playing...");
+	                else
+	                	status.setText("Paused...");
 	            }
 	        });
 	        
@@ -81,6 +85,7 @@ public class Player {
 	            @Override
 	            public void actionPerformed(ActionEvent e) {
 	                mediaPlayerComponent.getMediaPlayer().skip(-10000);
+	               
 	            }
 	        });
 	        
@@ -94,9 +99,11 @@ public class Player {
 	        videoSource.addActionListener(new ActionListener() {
 				
 				@Override
-				public void actionPerformed(ActionEvent e) {
-					 mediaPlayerComponent.getMediaPlayer().playMedia(videoSource.getText());
-					
+				public void actionPerformed(ActionEvent event) {
+						 
+					mediaPlayerComponent.getMediaPlayer().playMedia(videoSource.getText());
+					status.setText("Playing...");
+					 		 
 				}
 			});
 	        
