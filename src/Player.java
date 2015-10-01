@@ -4,7 +4,9 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 
 import uk.co.caprica.vlcj.component.EmbeddedMediaPlayerComponent;
@@ -16,6 +18,9 @@ public class Player {
 	    private final JButton rewindButton;
 	    private final JButton pauseButton;
 	    private final JButton forwardButton;
+	    private final JLabel sourceLabel;
+	    private final JTextField videoSource;	//enter the source of the video for example C:\a.mkv
+	    
 	    
 	    private final EmbeddedMediaPlayerComponent mediaPlayerComponent;
 
@@ -46,14 +51,25 @@ public class Player {
 	    	controlsPane.add(forwardButton);
 	    	contentPane.add(controlsPane, BorderLayout.SOUTH);
 	    	
+	    	JPanel sourcePane = new JPanel();
+	    	
+	    	sourceLabel = new JLabel("Video Source : ");
+	    	sourcePane.add(sourceLabel);
+	    	
+	    	videoSource = new JTextField(20);
+	    	sourcePane.add(videoSource);
+	    	contentPane.add(sourcePane, BorderLayout.NORTH);
+	    	
+	    	
 	    	frame = new JFrame("Rohan's Media Player");
 	        frame.setBounds(100, 100, 600, 400);
 	        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	    	frame.setContentPane(contentPane);
 	    	frame.setVisible(true);
 	    	
-	        mediaPlayerComponent.getMediaPlayer().playMedia(args[0]);
+	       
 
+	        
 	        pauseButton.addActionListener(new ActionListener() {
 	            @Override
 	            public void actionPerformed(ActionEvent e) {
@@ -74,6 +90,15 @@ public class Player {
 	                mediaPlayerComponent.getMediaPlayer().skip(10000);
 	            }
 	        });
+	        
+	        videoSource.addActionListener(new ActionListener() {
+				
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					 mediaPlayerComponent.getMediaPlayer().playMedia(videoSource.getText());
+					
+				}
+			});
 	        
 	        
 	    }
