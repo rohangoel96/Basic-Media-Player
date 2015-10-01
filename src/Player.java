@@ -11,6 +11,8 @@ import javax.swing.SwingUtilities;
 
 import uk.co.caprica.vlcj.component.EmbeddedMediaPlayerComponent;
 import uk.co.caprica.vlcj.discovery.NativeDiscovery;
+import uk.co.caprica.vlcj.player.MediaPlayer;
+import uk.co.caprica.vlcj.player.MediaPlayerEventAdapter;
 
 public class Player {
 
@@ -100,11 +102,27 @@ public class Player {
 				
 				@Override
 				public void actionPerformed(ActionEvent event) {
-						 
+					
 					mediaPlayerComponent.getMediaPlayer().playMedia(videoSource.getText());
-					status.setText("Playing...");
-					 		 
+						 
 				}
+			});
+	        mediaPlayerComponent.getMediaPlayer().addMediaPlayerEventListener(new MediaPlayerEventAdapter() {
+			    @Override
+			    public void playing(MediaPlayer mediaPlayer) {
+			    	status.setText("Playing...");
+			    }
+
+			    @Override
+			    public void finished(MediaPlayer mediaPlayer) {
+			    	
+			    	status.setText("Finshed Playing...");
+			    }
+
+			    @Override
+			    public void error(MediaPlayer mediaPlayer) {
+			    	status.setText("Enter a Valid File Source");
+			    }
 			});
 	        
 	        
